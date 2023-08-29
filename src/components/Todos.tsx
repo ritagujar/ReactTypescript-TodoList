@@ -10,6 +10,14 @@ const Todos = () => {
 
   let filterData = todos;
 
+  if (todoData === "active") {
+    filterData = filterData.filter((task) => !task.completed);
+  }
+
+  if (todoData === "completed") {
+    filterData = filterData.filter((task) => task.completed);
+  }
+
   return (
     <ul>
       {filterData.map((todo) => {
