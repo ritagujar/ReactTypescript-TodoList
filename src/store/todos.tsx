@@ -15,6 +15,7 @@ export type TodosContext = {
   todos: Todo[];
   handleAddTodo: (task: string) => void; // call signature
   toggleTodoAsCompleted: (id: string) => void;
+  handleDeleteTodo: (id: string) => void;
 };
 
 export const todosContext = createContext<TodosContext | null>(null);
@@ -54,9 +55,17 @@ export const TodosProvider = ({ children }: TodosProviderProps) => {
     });
   };
 
+  // Delete the indivisual data
+  const handleDeleteTodo = (id: string) => {
+    setTodos((prev) => {
+      let newTodos = prev.filter((filterTodo) => filterTodo.id !== id);
+      return newTodos;
+    });
+  };
+
   return (
     <todosContext.Provider
-      value={{ todos, handleAddTodo, toggleTodoAsCompleted }}
+      value={{ todos, handleAddTodo, toggleTodoAsCompleted, handleDeleteTodo }}
     >
       {children}
     </todosContext.Provider>
